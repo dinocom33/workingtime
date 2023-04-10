@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Add Team | {% endblock %}
+
+{% block content %}
+    <br>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{% url "myaccount" %}">My account</a></li>
+            <li class="is-active"><a href="{% url "team:add_team" %}" aria-current="page">Add Team</a></li>
+        </ul>
+    </nav>
+
+    <div class="columns is">
+        <div class="column is-4 is-offset-4">
+            <h1 class="title">Add Team</h1>
+        </div>
+    </div>
+
+{% endblock %}

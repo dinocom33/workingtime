@@ -21,7 +21,6 @@ from .forms import NewUserForm
 #                   context={"register_form": form})
 
 
-
 @login_required
 def myaccount(request):
     return render(request, "userprofile/myaccount.html")
