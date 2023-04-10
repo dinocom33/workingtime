@@ -1,28 +1,66 @@
-#neubar {
-	      background: #fae8d2;
-	      box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
-	    }
+/*#neubar {*/
+/*	      background: #fae8d2;*/
+/*	      box-shadow: 4px 6px 12px rgba(0,0,0,0.4)*/
+/*	    }*/
 
-	    .nav-item .active {
-	      border-radius: 6px;
-	      background: linear-gradient(145deg, #ffe7ca, #f5d7b2);
-	      box-shadow:  4px 4px 8px #ddc1a0,
-	                   -4px -4px 8px #f7e5cc;
-	    }
-	    #neubar .dropdown-menu a:hover {
-	      color: #454545
-	    }
-	    #neubar .nav-item {
-	      margin : auto 4px;
-	    }
-	    #neubar a {
+/*	    .nav-item .active {*/
+/*	      border-radius: 6px;*/
+/*	      background: linear-gradient(145deg, #ffe7ca, #f5d7b2);*/
+/*	      box-shadow:  4px 4px 8px #ddc1a0,*/
+/*	                   -4px -4px 8px #f7e5cc;*/
+/*	    }*/
+/*	    #neubar .dropdown-menu a:hover {*/
+/*	      color: #454545*/
+/*	    }*/
+/*	    #neubar .nav-item {*/
+/*	      margin : auto 4px;*/
+/*	    }*/
+/*	    #neubar a {*/
 
-	      padding-left:12px;
-	      padding-right:12px;
-	    }
-	    #neubar .dropdown-menu {
-	      background : #545454
-	    }
-	    a.navbar-brand {
-	      color: #454545
-	    }
+/*	      padding-left:12px;*/
+/*	      padding-right:12px;*/
+/*	    }*/
+/*	    #neubar .dropdown-menu {*/
+/*	      background : #545454*/
+/*	    }*/
+/*	    a.navbar-brand {*/
+/*	      color: #454545*/
+/*	    }*/
+
+
+/* Modify the background color */
+
+.navbar-custom {
+	background-color: #fae8d2;
+}
+
+.nav-item {
+		font-size:18px;
+		text-transform:uppercase;
+		height:82px;
+		line-height:64px;
+	  }
+	  .flare {
+		background:#ef662b;
+	  }
+	  .flare a.nav-link {
+		color:#fff !important
+	  }
+	  .topbarElements > div:nth-of-type(1){
+		font-size:48px;
+		margin:12px 32px;
+		color:#ef662b
+	  }
+	  @media screen and (min-width:1040px){
+		.flare { margin-right:-15px; }
+	  }
+	  @media screen and (max-width:1029px){
+		.navbar-nav {
+		  margin-bottom:15px;
+		  text-align:center
+		}
+		.nav-item {
+		  background : rgba(255,255,255,0.1);
+		  margin:2px;
+		}
+	  }
