@@ -12,10 +12,28 @@
         </ul>
     </nav>
 
-    <div class="columns" id="team-app">
-        <div class="column is-4 is-offset-4">
+    <div class="columns is-multiline" id="team-app">
+        <div class="column is-4">
             <h1 class="title">{{ team.title }}</h1>
+
+            <hr>
+
+            <h2 class="subtitle mt-6">Members</h2>
+
+            {% for member in team.members.all %}
+                <p>{{ member.username }}</p>
+            {% endfor %}
         </div>
+
+        {% if team.created_by == request.user %}
+            <div class="column is-12">
+                <hr>
+                <h3 class="subtitle">Owner actions</h3>
+
+                <a href="{% url "team:edit_team" %}" class="button is-warning">Edit Team</a>
+            </div>
+        {% endif %}
+
     </div>
 
 {% endblock %}

@@ -1,19 +1,19 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Add Team | {% endblock %}
+{% block title %}Edit Team | {% endblock %}
 
 {% block content %}
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="#">Dashboard</a></li>
             <li><a href="{% url 'myaccount' %}">My account</a></li>
-            <li class="is-active"><a href="{% url 'team:add_team' %}" aria-current="page">Add team</a></li>
+            <li class="is-active"><a href="{% url 'team:edit_team' %}" aria-current="page">Edit team</a></li>
         </ul>
     </nav>
 
     <div class="columns" id="team-app">
         <div class="column is-4 is-offset-5">
-            <h1 class="title">Add team</h1>
+            <h1 class="title">Edit team</h1>
 
             <form method="post" action="." @submit="validateForm">
                 {% csrf_token %}
@@ -32,7 +32,7 @@
 
                 <div class="field">
                     <div class="control">
-                        <button class="button is-success">Submit</button>
+                        <button class="button is-success">Save changes</button>
                     </div>
                 </div>
             </form>
@@ -45,7 +45,7 @@
         const TeamApp = {
             data() {
                 return {
-                    title: "",
+                    title: "{{ team.title }}",
                     errors: [],
                 }
             },

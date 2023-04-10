@@ -11,7 +11,7 @@
         </ul>
     </nav>
     <div class="columns">
-        <div class="column is-6 is-offset-1">
+        <div class="column is-6 is-offset-5">
             <div class="media mb-4">
                 <div class="media-left">
 
@@ -67,7 +67,7 @@
                 <hr>
 
                 <a href="{% url 'team:team' team.id %}" class="button is-success">Details</a>
-                <a href="#" class="button is-info">Activate</a>
+                <a href="{% url "team:activate_team" team.id %}" class="button is-info">Activate</a>
                 </div>
             </div>
         {% endfor %}
