@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from apps.team.models import Team
 from .forms import NewUserForm
 
 
@@ -23,7 +24,9 @@ from .forms import NewUserForm
 
 @login_required
 def myaccount(request):
-    return render(request, "userprofile/myaccount.html")
+    teams = request.user.teams.exclude(pk=request.user.userprofile.active_team_id)
+
+    return render(request, "userprofile/myaccount.html", {"teams": teams})
 
 
 @login_required

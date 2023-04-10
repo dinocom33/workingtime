@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ team.title }} | {% endblock %}
+
+{% block content %}
+    <br>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{% url 'myaccount' %}">My account</a></li>
+            <li class="is-active"><a href="{% url 'team:team' team.id %}" aria-current="page">{{ team.title }}</a></li>
+        </ul>
+    </nav>
+
+    <div class="columns" id="team-app">
+        <div class="column is-4 is-offset-4">
+            <h1 class="title">{{ team.title }}</h1>
+        </div>
+    </div>
+
+{% endblock %}
