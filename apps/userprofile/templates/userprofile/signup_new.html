@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <section class="hero is-small is-light is-bold">
+        <div class="hero-body" style="background-color: #fae8d2">
+            <div class="container" style="background-color: #fae8d2">
+                <h1 class="title">Sign up</h1>
+                <h2 class="subtitle">Create your personal account and start tracking your work time.</h2>
+            </div>
+        </div>
+    </section>
+    <div class="container py-5">
+        <h1>Register</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ register_form|crispy }}
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+        <p class="text-center">If you already have an account, <a href="{% url "login" %}">login</a> instead.</p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+
+    {% block title %}Home | {% endblock %}
+
+{% block content %}
+    <section class="hero is-medium is-light is-bold">
+        <div class="hero-body" style="background-color: #fae8d2">
+            <div class="container" style="background-color: #fae8d2">
+                <h1 class="title">Welcome to Working Time</h1>
+                <h2 class="subtitle">The best time tracking system</h2>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+{#    <div class="container border shadow d-flex p-4 bd-highlight">#}
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="column is-offset-2 text-center">
+            <div class="columns text-center mt-6">
+                <div class="rounded-start">
+                    <img src="{% static 'images/time-tracking-icon-3.png' %}" alt="image"/>
+                </div>
+                <div class="column is-8 text-wrap">
+                    <h2 class="subtitle">Simple Tracking system</h2>
+                    <p>Some text here.Some text here.Some text here.Some text here.Some text here.Some text here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+{#    <div class="container border shadow d-flex p-4 bd-highlight">#}
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="column is-offset-2 text-center">
+            <div class="columns text-center mt-6">
+                <div class="column is-8 text-wrap">
+                    <h2 class="subtitle">Simple Tracking system</h2>
+                    <p>Some text here.Some text here.Some text here.Some text here.Some text here.Some text here.</p>
+                </div>
+                <div class="rounded-end">
+                    <img src="{% static 'images/time-tracking-icon-3.png' %}" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+{#    <div class="container border shadow d-flex p-4 bd-highlight">#}
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="column is-offset-2 text-center">
+            <div class="columns text-center mt-6">
+                <div class="rounded-start">
+                    <img src="{% static 'images/time-tracking-icon-3.png' %}" alt="image">
+                </div>
+                <div class="column is-8 text-wrap">
+                    <h2 class="subtitle">Simple Tracking system</h2>
+                    <p>Some text here.Some text here.Some text here.Some text here.Some text here.Some text here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+
+{% endblock %}
+{% block scripts %}
+{% endblock %}
