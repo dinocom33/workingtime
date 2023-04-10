@@ -32,6 +32,7 @@ def signup(request):
 
             userprofile = Userprofile.objects.create(user=user)
             login(request, user)
+            messages.info(request, "You have successfully logged into your account.")
             return redirect("myaccount")
     else:
         form = UserCreationForm
