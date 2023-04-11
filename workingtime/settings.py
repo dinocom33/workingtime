@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.team',
     'apps.userprofile',
+    'apps.project',
 
 
     'crispy_forms',
