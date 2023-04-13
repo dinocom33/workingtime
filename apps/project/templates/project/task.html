@@ -16,8 +16,10 @@
         <div class="columns">
             <div class="column">
                 <h1 class="title">{{ task.title }}</h1>
-
-                <a href="{% url 'project:edit_task' project.id task.id %}" class="button is-warning">Edit task</a>
+                <div class="buttons">
+                    <a href="{% url 'project:edit_task' project.id task.id %}" class="button is-warning">Edit task</a>
+                    <a href="{% url 'project:project' project.id %}" class="button">Back</a>
+                </div>
             </div>
         </div>
     </div>
