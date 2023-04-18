@@ -28,7 +28,7 @@
             <div class="columns">
                 <div class="column is-3">
                     <div class="notification">
-                        <p>No tasks yet...</p>
+                        <p>There is no tasks.</p>
                     </div>
                 </div>
             </div>
@@ -41,9 +41,10 @@
                 </div>
 
                 {% for task in tasks_todo %}
-                    <div class="columns is-4">
+                    <div class="column is-4">
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>
+                            <p>Registered time: {{ task.registered_time }} min</p>
 
                             <hr>
 
@@ -59,9 +60,10 @@
                 </div>
 
                 {% for task in tasks_done %}
-                    <div class="columns is-4">
+                    <div class="column is-4">
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>
+                            <p>Registered time: {{ task.registered_time }} min</p>
 
                             <hr>
 
