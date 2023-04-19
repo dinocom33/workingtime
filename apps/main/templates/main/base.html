@@ -44,15 +44,18 @@
                     <li class="nav-item active">
                         <a class="navbar-item" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
                         {% if not request.user.is_authenticated %}
-                            <a class="navbar-item" href="{% url 'plans' %}">Plans</a>
+                            <li class="nav-item">
+                                <a class="navbar-item" href="{% url 'plans' %}">Plans</a>
+                            </li>
                         {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'project:projects' %}" class="navbar-item">Projects</a>
+                            </li>
                         {% endif %}
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item">
@@ -160,4 +163,7 @@
         <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 
     </body>
+
 </html>
+{% block scripts %}
+{% endblock %}
