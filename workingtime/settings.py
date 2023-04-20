@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 from apps import dashboard
 
@@ -22,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=yy4su^cujc^o+lb8^47ib6p650z3j82zpxmxfkhq0=(00bm95'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 LOGIN_URL = "login"
@@ -33,6 +34,15 @@ LOGIN_REDIRECT_URL = "myaccount"
 LOGOUT_REDIRECT_URL = "home"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
+# Email configuration
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+DEFAULT_EMAIL_FROM = config('DEFAULT_EMAIL_FROM')
+
+ACCEPTATION_URL = config('ACCEPTATION_URL')
 
 # Application definition
 
