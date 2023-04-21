@@ -1,14 +1,17 @@
+import random
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Team
+from .models import Team, Invitation
 from django.contrib.auth.decorators import login_required
+from .utilities import send_invitation, send_invitation_accepted
 
 
 @login_required
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id, status=Team.ACTIVE, members__in=[request.user])
+    invitations = team.invitations.filter(status=Invitation.INVITED)
 
-    return render(request, "team/team.html", {'team': team})
+    return render(request, "team/team.html", {'team': team, 'invitations': invitations})
 
 
 @login_required
@@ -57,3 +60,28 @@ def add_team(request):
             return redirect("myaccount")
 
     return render(request, "team/add_team.html")
+
+
+@login_required
+def invite(request):
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
+
+    if request.method == "POST":
+        email = request.POST.get('email')
+
+        if email:
+            invitations = Invitation.objects.filter(team=team, email=email)
+
+            if not invitations:
+                code = "".join(random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789") for i in range(4))
+                invitation = Invitation.objects.create(team=team, email=email, code=code)
+
+                messages.info(request, "The user has been invited")
+
+                send_invitation(email, code, team)
+
+                return redirect('team:team', team_id=team.id)
+            else:
+                messages.info(request, "The user has already been invited")
+
+    return render(request, 'team/invite.html', {'team': team})

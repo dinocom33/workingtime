@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Accept invitation | {% endblock %}
+
+{% block content %}
+    <br>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{% url "myaccount" %}">My account</a></li>
+            <li class="is-active"><a href="{% url "accept_invitation" %}" aria-current="page">Accept invitation</a></li>
+        </ul>
+    </nav>
+
+    <div class="columns is">
+        <div class="column is-4 is-offset-4">
+            <h1 class="title">Accept invitation</h1>
+
+            <form method="post" action=".">
+                {% csrf_token %}
+                <div class="field">
+                    <label>Enter your code here</label>
+                    <div class="control">
+                        <input type="text" name="code" id="id_code" class="input">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-success">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
