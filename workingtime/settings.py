@@ -88,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.team.context_processors.active_team',
+                'apps.project.context_processor.active_entry',
             ],
         },
     },
