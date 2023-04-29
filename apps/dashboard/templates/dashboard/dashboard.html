@@ -136,6 +136,12 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ time_for_team_and_month|format_minutes }}</td>
+                            </tr>
+                        </tfoot>
                         </table>
                     {% else %}
                         <p>No registered time for your team this month</p>

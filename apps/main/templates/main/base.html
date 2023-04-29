@@ -1,7 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% load static %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{% endblock %}Working Time</title>
@@ -23,11 +23,11 @@
 {#        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>#}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-        <style>
-            .navbar-custom {
-                background-color: #fae8d2;
-            }
-        </style>
+{#        <style>#}
+{#            .navbar-custom {#}
+{#                background-color: #fae8d2;#}
+{#            }#}
+{#        </style>#}
 
     </head>
 
@@ -52,10 +52,11 @@
                             <li class="nav-item">
                                 <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
                             </li>
-
-                            <li class="nav-item">
-                                <a href="{% url 'project:projects' %}" class="navbar-item">Projects</a>
-                            </li>
+                            {% if request.user.userprofile.active_team_id %}
+                                <li class="nav-item">
+                                    <a href="{% url 'project:projects' %}" class="navbar-item">Projects</a>
+                                </li>
+                            {% endif %}
 
                         {% endif %}
                     </ul>
@@ -128,7 +129,7 @@
             {% endblock %}
         </section>
 
-        <footer class="footer" style="background-color: #fae8d2">
+        <footer class="footer">
             <div class="columns is-multiline">
                 <div class="column is-4">
                     <h3 class="subtitle">Working Time</h3>

@@ -67,7 +67,7 @@
                 <a href="{% url "team:team" active_team.id %}" class="button is-success">Details</a>
 
                 {% if active_team.created_by == request.user %}
-                    <a href="#" class="button is-info">Invite users</a>
+                    <a href="{% url 'team:invite' %}" class="button is-info">Invite users</a>
                 {% endif %}
                 </div>
             </div>
