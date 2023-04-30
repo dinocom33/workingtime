@@ -12,7 +12,6 @@ def home(request):
     return render(request, "main/home.html")
 
 
-@admin_only
 def privacy(request):
     return render(request, "main/privacy.html")
 
