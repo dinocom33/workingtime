@@ -6,6 +6,7 @@ from apps.main.decorators import unauthenticated_user, allowed_users, admin_only
 from apps.team.models import Invitation
 from apps.userprofile.models import Userprofile
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
 
 def home(request):
@@ -32,7 +33,11 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             user.email = user.username
+            group = Group.objects.get(name='team_member')
+            user.groups.add(group)
             user.save()
+
+            messages.success(request, 'Account was created for ' + user.username)
 
             userprofile = Userprofile.objects.create(user=user)
 
