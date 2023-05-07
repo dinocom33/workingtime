@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
@@ -26,7 +27,9 @@ def plans(request):
     return render(request, "main/plans.html")
 
 
+# @login_required
 @unauthenticated_user
+# @admin_only
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -42,7 +45,33 @@ def signup(request):
 
             userprofile = Userprofile.objects.create(user=user)
 
-            # return render(request, "main/login.html", {"form": form})
+            return render(request, "main/signup.html")
+
+            # return redirect("dashboard")
+    #         login(request, user)
+    #
+    #         messages.success(request, "You have successfully logged into your account.")
+    #
+    #         invitations = Invitation.objects.filter(email=user.email, status=Invitation.INVITED)
+    #         if invitations:
+    #             return redirect('accept_invitation')
+    #         else:
+    #             return redirect("dashboard")
+    else:
+        form = UserCreationForm
+
+    return render(request, "main/signup.html", {"form": form})
+
+
+@unauthenticated_user
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
             login(request, user)
 
             messages.success(request, "You have successfully logged into your account.")
@@ -53,28 +82,4 @@ def signup(request):
             else:
                 return redirect("dashboard")
     else:
-        form = UserCreationForm
-
-    return render(request, "main/signup.html", {"form": form})
-
-
-# @unauthenticated_user
-# def login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('email')
-#         password = request.POST.get('password')
-#
-#         user = authenticate(request, username=email, password=password)
-#
-#         if user is not None:
-#             login(request, user)
-#
-#             messages.success(request, "You have successfully logged into your account.")
-#
-#             invitations = Invitation.objects.filter(email=user.email, status=Invitation.INVITED)
-#             if invitations:
-#                 return redirect('accept_invitation')
-#             else:
-#                 return redirect("dashboard")
-#     else:
-#         return render(request, 'main/login.html')
+        return render(request, 'main/login.html')
