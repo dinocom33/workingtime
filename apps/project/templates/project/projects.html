@@ -15,8 +15,9 @@
         <div class="columns">
             <div class="column is-4">
                 <h1 class="title">Projects</h1>
-
-                <a @click="showAddProjectModal = !showAddProjectModal" class="button is-success">Add project</a>
+                {% if user.is_staff %}
+                    <a @click="showAddProjectModal = !showAddProjectModal" class="button is-success">Add project</a>
+                {% endif %}
             </div>
         </div>
 
