@@ -1,7 +1,16 @@
 .navbar-custom {
-    background-color: #fae8d2;
+    /*background-color: #fae8d2;*/
+    background-color: #e3b39f;
 }
 
 .footer {
-    background-color: #fae8d2;
+    background-color: #e3b39f;
+}
+
+.navbar-brand {
+  width: 150px;
+}
+
+.navbar-brand > img {
+  width: 100%;
 }
