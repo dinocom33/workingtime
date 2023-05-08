@@ -23,7 +23,7 @@ from apps.team.utilities import send_invitation_accepted
 #                   context={"register_form": form})
 
 
-@login_required
+@login_required(login_url='login')
 def myaccount(request):
     teams = request.user.teams.exclude(pk=request.user.userprofile.active_team_id)
     invitations = Invitation.objects.filter(email=request.user.email, status=Invitation.INVITED)
@@ -31,7 +31,7 @@ def myaccount(request):
     return render(request, "userprofile/myaccount.html", {"teams": teams, "invitations": invitations})
 
 
-@login_required
+@login_required(login_url='login')
 def edit_profile(request):
     if request.method == "POST":
         request.user.first_name = request.POST.get("first_name", "")
@@ -52,7 +52,7 @@ def edit_profile(request):
     return render(request, "userprofile/edit_profile.html")
 
 
-@login_required()
+@login_required(login_url='login')
 def accept_invitation(request):
     if request.method == 'POST':
         code = request.POST.get('code')

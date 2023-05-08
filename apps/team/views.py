@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .utilities import send_invitation, send_invitation_accepted
 
 
-@login_required
+@login_required(login_url='login')
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id, status=Team.ACTIVE, members__in=[request.user])
     invitations = team.invitations.filter(status=Invitation.INVITED)
@@ -14,7 +14,7 @@ def team(request, team_id):
     return render(request, "team/team.html", {'team': team, 'invitations': invitations})
 
 
-@login_required
+@login_required(login_url='login')
 def activate_team(request, team_id):
     team = get_object_or_404(Team, pk=team_id, status=Team.ACTIVE, members__in=[request.user])
     userprofile = request.user.userprofile
@@ -26,7 +26,7 @@ def activate_team(request, team_id):
     return redirect("team:team", team_id=team_id)
 
 
-@login_required
+@login_required(login_url='login')
 def edit_team(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
     if request.method == 'POST':
@@ -43,7 +43,7 @@ def edit_team(request):
     return render(request, "team/edit_team.html", {"team": team})
 
 
-@login_required
+@login_required(login_url='login')
 def add_team(request):
     if request.method == 'POST':
         title = request.POST.get("title")
@@ -62,7 +62,7 @@ def add_team(request):
     return render(request, "team/add_team.html")
 
 
-@login_required
+@login_required(login_url='login')
 def invite(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
 

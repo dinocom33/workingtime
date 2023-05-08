@@ -10,7 +10,7 @@ from .utilities import get_time_for_user_and_date, get_time_for_team_and_month, 
     get_time_for_user_and_project_for_and_month, get_time_for_user_and_team_month
 
 
-@login_required()
+@login_required(login_url='login')
 def dashboard(request):
     if not request.user.userprofile.active_team_id:
         return redirect("myaccount")
@@ -69,7 +69,7 @@ def dashboard(request):
     return render(request, 'dashboard/dashboard.html', context)
 
 
-@login_required()
+@login_required(login_url='login')
 def view_user(request, user_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     all_projects = team.projects.all()

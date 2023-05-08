@@ -27,9 +27,9 @@ def plans(request):
     return render(request, "main/plans.html")
 
 
-# @login_required
+@login_required(login_url='login')
 @unauthenticated_user
-# @admin_only
+@admin_only
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -81,5 +81,8 @@ def login_view(request):
                 return redirect('accept_invitation')
             else:
                 return redirect("dashboard")
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('login')
     else:
         return render(request, 'main/login.html')

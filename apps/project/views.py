@@ -7,7 +7,7 @@ from .models import Project, Task, Entry
 from apps.team.models import Team
 
 
-@login_required
+@login_required(login_url='login')
 def projects(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     projects = team.projects.all()
@@ -25,7 +25,7 @@ def projects(request):
     return render(request, 'project/projects.html', {"team": team, "projects": projects})
 
 
-@login_required()
+@login_required(login_url='login')
 def project(request, project_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -46,7 +46,7 @@ def project(request, project_id):
     return render(request, "project/project.html", {"team": team, "project": project, "tasks_todo": tasks_todo, "tasks_done": tasks_done})
 
 
-@login_required()
+@login_required(login_url='login')
 def edit_project(request, project_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -65,7 +65,7 @@ def edit_project(request, project_id):
     return render(request, "project/edit_project.html", {"team": team, "project": project})
 
 
-@login_required
+@login_required(login_url='login')
 def task(request, project_id, task_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -82,7 +82,7 @@ def task(request, project_id, task_id):
     return render(request, "project/task.html", {"today": datetime.today(), "team": team, "project": project, "task": task})
 
 
-@login_required()
+@login_required(login_url='login')
 def edit_task(request, project_id, task_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -104,7 +104,7 @@ def edit_task(request, project_id, task_id):
     return render(request, "project/edit_task.html", {"team": team, "project": project, "task": task})
 
 
-@login_required()
+@login_required(login_url='login')
 def edit_entry(request, project_id, task_id, entry_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -137,7 +137,7 @@ def edit_entry(request, project_id, task_id, entry_id):
     return render(request, 'project/edit_entry.html', context)
 
 
-@login_required()
+@login_required(login_url='login')
 def delete_entry(request, project_id, task_id, entry_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -150,7 +150,7 @@ def delete_entry(request, project_id, task_id, entry_id):
     return redirect("project:task", project_id=project_id, task_id=task_id)
 
 
-@login_required()
+@login_required(login_url='login')
 def delete_untracked_entry(request, entry_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     entry = get_object_or_404(Entry, pk=entry_id, team=team)
@@ -161,7 +161,7 @@ def delete_untracked_entry(request, entry_id):
     return redirect("dashboard")
 
 
-@login_required
+@login_required(login_url='login')
 def track_entry(request, entry_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     entry = get_object_or_404(Entry, pk=entry_id, team=team)
