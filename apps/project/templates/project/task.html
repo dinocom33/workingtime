@@ -18,7 +18,9 @@
             <div class="column">
                 <h1 class="title">{{ task.title }} ({{ task.get_status_display }})</h1>
                 <div class="buttons">
-                    <a href="{% url 'project:edit_task' project.id task.id %}" class="button is-warning">Edit task</a>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'project:edit_task' project.id task.id %}" class="button is-warning">Edit task</a>
+                    {% endif %}
                     <a href="{% url 'project:project' project.id %}" class="button">Back</a>
 
 
@@ -88,8 +90,10 @@
                                     <td>{% firstof entry.created_by.get_full_name entry.created_by.username %}</td>
                                     <td>{{ entry.minutes|format_minutes }}</td>
                                     <td>
-                                        <a href="{% url 'project:edit_entry' project.id team.id entry.id %}">Edit</a>
-                                        <a href="{% url 'project:delete_entry' project.id team.id entry.id %}">Delete</a>
+                                        {% if request.user.is_staff %}
+                                            <a href="{% url 'project:edit_entry' project.id team.id entry.id %}">Edit</a>
+                                            <a href="{% url 'project:delete_entry' project.id team.id entry.id %}">Delete</a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

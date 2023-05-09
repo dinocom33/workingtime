@@ -28,7 +28,6 @@ def plans(request):
 
 
 @login_required(login_url='login')
-@unauthenticated_user
 @admin_only
 def signup(request):
     if request.method == 'POST':
@@ -80,7 +79,7 @@ def login_view(request):
             if invitations:
                 return redirect('accept_invitation')
             else:
-                return redirect("dashboard")
+                return redirect("myaccount")
         else:
             messages.error(request, 'Invalid username or password')
             return redirect('login')

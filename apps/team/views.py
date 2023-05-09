@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Team, Invitation
 from django.contrib.auth.decorators import login_required
 from .utilities import send_invitation, send_invitation_accepted
+from apps.main.decorators import admin_only
 
 
 @login_required(login_url='login')
@@ -27,6 +28,7 @@ def activate_team(request, team_id):
 
 
 @login_required(login_url='login')
+@admin_only
 def edit_team(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
     if request.method == 'POST':
@@ -44,6 +46,7 @@ def edit_team(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def add_team(request):
     if request.method == 'POST':
         title = request.POST.get("title")
@@ -63,6 +66,7 @@ def add_team(request):
 
 
 @login_required(login_url='login')
+@admin_only
 def invite(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
 

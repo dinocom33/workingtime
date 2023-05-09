@@ -27,6 +27,12 @@
                 <span class="icon"><i class="far fa-edit"></i></span>
                 <span>Edit profile</span>
             </a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'signup' %}" class="button is-warning">
+                    <span class="icon"><i class="far fa-edit"></i></span>
+                    <span>Create user</span>
+                </a>
+            {% endif %}
             <a href="{% url "logout" %}" class="button is-danger">
                 <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
                 <span>Log out</span>

@@ -58,22 +58,21 @@
                 </div>
 
                 <ul class="password-helt-text">
-                    <li v-if="password1.length < 8">Your password must contain at least 8 characters</li>
-                    <li v-if="!isNaN(password1)">Your password can't be entirely numeric.</li>
+                    <li v-if="password1.length < 8">The password must contain at least 8 characters</li>
+                    <li v-if="!isNaN(password1)">The password can't be entirely numeric.</li>
                 </ul>
 
                 <div class="field">
                     <div class="control">
-                        <button class="button is-success">Sign up</button>
+                        <button class="button is-success">Submit</button>
+                        <a class="button ms-2" href="{% url 'myaccount' %}">Back</a>
                     </div>
                 </div>
             </form>
 
-            <hr>
-
-            <h2 class="subtitle">Already have an account?</h2>
-
-            <a href="{% url 'login' %}">Click here to log in</a>
+{#            <h2 class="subtitle">Already have an account?</h2>#}
+{##}
+{#            <a href="{% url 'login' %}">Click here to log in</a>#}
         </div>
     </div>
 {% endblock %}

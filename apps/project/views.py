@@ -5,6 +5,7 @@ from datetime import datetime
 
 from .models import Project, Task, Entry
 from apps.team.models import Team
+from apps.main.decorators import allowed_users, admin_only
 
 
 @login_required(login_url='login')
@@ -47,6 +48,7 @@ def project(request, project_id):
 
 
 @login_required(login_url='login')
+@admin_only
 def edit_project(request, project_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)
@@ -83,6 +85,7 @@ def task(request, project_id, task_id):
 
 
 @login_required(login_url='login')
+@admin_only
 def edit_task(request, project_id, task_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     project = get_object_or_404(Project, team=team, pk=project_id)

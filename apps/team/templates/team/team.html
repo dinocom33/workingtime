@@ -19,12 +19,16 @@
             {% if request.user == team.created_by %}
                 <a href="{% url 'team:invite' %}" class="button is-primary">Invite users</a>
             {% endif %}
+            <a class="button" href="{% url 'myaccount' %}">Back</a>
             <hr>
 
             <h2 class="subtitle mt-6">Members</h2>
 
             {% for member in team.members.all %}
-                <p>{{ member.username }}</p>
+                <p>{{ member.first_name }} {{ member.last_name }}<br>
+                    {{ member.username }}
+                    <hr>
+                </p>
             {% endfor %}
 
             <hr>

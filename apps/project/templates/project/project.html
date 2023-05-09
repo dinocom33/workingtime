@@ -17,8 +17,10 @@
                 <h1 class="title">{{ project.title }}</h1>
 
                 <div class="buttons">
-                    <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
-                    <a href="{% url 'project:edit_project' project.id %}" class="button is-warning">Edit project</a>
+                    {% if request.user.is_staff %}
+                        <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
+                        <a href="{% url 'project:edit_project' project.id %}" class="button is-warning">Edit project</a>
+                    {% endif %}
                     <a class="button" href="{% url 'project:projects' %}">Back</a>
                 </div>
             </div>

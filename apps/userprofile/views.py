@@ -6,23 +6,6 @@ from .forms import NewUserForm
 from apps.team.utilities import send_invitation_accepted
 
 
-# def signup(request):
-#     if request.method == "POST":
-#         form = NewUserForm(request.POST)
-#
-#         if form.is_valid():
-#             user = form.save()
-#             user.email = user.username
-#             user.save()
-#             login(request, user)
-#             messages.success(request, "Registration successful.")
-#             return redirect("home")
-#         messages.error(request, "Unsuccessful registration. Invalid information.")
-#     form = NewUserForm()
-#     return render(request=request, template_name="userprofile/signup.html",
-#                   context={"register_form": form})
-
-
 @login_required(login_url='login')
 def myaccount(request):
     teams = request.user.teams.exclude(pk=request.user.userprofile.active_team_id)
