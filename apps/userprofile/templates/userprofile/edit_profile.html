@@ -56,10 +56,13 @@
                 <div class="field">
                     <div class="control">
                         <button class="button is-success">Save changes</button>
-                        <button href="{% url "myaccount" %}" class="button">Back</button>
+                        <form>
+                            <input class="button" value="Back" onclick="history.back()">
+                        </form>
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 {% endblock %}
