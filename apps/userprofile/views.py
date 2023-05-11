@@ -4,6 +4,7 @@ from django.contrib import messages
 from apps.team.models import Team, Invitation
 from .forms import NewUserForm
 from apps.team.utilities import send_invitation_accepted
+from .forms import ChangePasswordForm
 
 
 @login_required(login_url='login')
@@ -33,6 +34,23 @@ def edit_profile(request):
         return redirect("myaccount")
 
     return render(request, "userprofile/edit_profile.html")
+
+
+@login_required(login_url='login')
+def password_change(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ChangePasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your password has been changed")
+            return redirect('login')
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
+    form = ChangePasswordForm(user)
+    return render(request, 'userprofile/password_reset_confirm.html', {'form': form})
 
 
 @login_required(login_url='login')
