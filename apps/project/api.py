@@ -30,6 +30,8 @@ def api_stop_timer(request):
 
     if tracked_minutes < 1:
         tracked_minutes = 1
+    elif tracked_minutes > 1:
+        tracked_minutes += 1
 
     entry.minutes = tracked_minutes
     entry.is_tracked = False
