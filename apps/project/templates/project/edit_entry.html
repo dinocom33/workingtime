@@ -41,7 +41,7 @@
                                 <select name="minutes">
                                     <option value="0"{% if minutes == 0 %} selected {% endif %}>0m</option>
                                     {% for i in "x"|rjust:"59" %}
-                                        <option value="{{ forloop.counter }}" {% if minutes <= forloop.counter %} selected{% endif %}>{{ forloop.counter }}m</option>
+                                        <option value="{{ forloop.counter }}" {% if minutes == forloop.counter %} selected{% endif %}>{{ forloop.counter }}m</option>
                                     {% endfor %}
                                 </select>
                             </div>
