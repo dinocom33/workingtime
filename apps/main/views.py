@@ -45,17 +45,6 @@ def signup(request):
             userprofile = Userprofile.objects.create(user=user)
 
             return render(request, "main/signup.html")
-
-            # return redirect("dashboard")
-    #         login(request, user)
-    #
-    #         messages.success(request, "You have successfully logged into your account.")
-    #
-    #         invitations = Invitation.objects.filter(email=user.email, status=Invitation.INVITED)
-    #         if invitations:
-    #             return redirect('accept_invitation')
-    #         else:
-    #             return redirect("dashboard")
     else:
         form = UserCreationForm
 

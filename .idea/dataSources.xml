@@ -10,5 +10,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\Simeon Todorov\PycharmProjects\workingtime\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="workingtime@localhost" uuid="ce16a1a2-8f94-4f42-ba2d-23d68aaa9f0a">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/workingtime</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
