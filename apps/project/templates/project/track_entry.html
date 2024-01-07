@@ -18,7 +18,7 @@
             <form method="post" action=".">
                 {% csrf_token %}
 
-                <div class="field">      
+                <div class="field">
                     <label>Project</label>
 
                     <div class="control">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="field">      
+                <div class="field">
                     <label>Task</label>
 
                     <div class="control">
@@ -115,7 +115,7 @@
                         return response.json()
                     })
                     .then((result) => {
-                        this.tasks = result.tasks
+                        this.tasks = result.tasks.filter(tasks => tasks.status === 'todo')
                         this.tasks.unshift({'id': '', 'title': 'Select task'})
                     })
                 } else {

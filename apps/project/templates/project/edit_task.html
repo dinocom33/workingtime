@@ -39,6 +39,7 @@
                                 <select name="status" id="id_status">
                                     <option value="todo"{% if task.status == 'todo' %} selected{% endif %}>Todo</option>
                                     <option value="done"{% if task.status == 'done' %} selected{% endif %}>Done</option>
+                                    <option value="archived"{% if task.status == 'archived' %} selected{% endif %}>Archived</option>
                                 </select>
                             </div>
                         </div>

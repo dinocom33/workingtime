@@ -6,8 +6,17 @@ from apps.team.models import Team
 
 
 class Project(models.Model):
+    ACTIVE = 'active'
+    ARCHIVED = 'archived'
+
+    STATUS_CHOICES = (
+        (ACTIVE, 'Active'),
+        (ARCHIVED, 'Archived'),
+    )
+
     team = models.ForeignKey(Team, related_name='projects', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ACTIVE)
     created_by = models.ForeignKey(User, related_name='projects', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
 

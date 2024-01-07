@@ -1,6 +1,7 @@
 from django.urls import path
 from .api import api_start_timer, api_stop_timer, api_discard_timer, api_get_tasks
-from .views import projects, project, edit_project, task, edit_task, edit_entry, delete_entry, delete_untracked_entry, track_entry
+from .views import projects, project, edit_project, task, edit_task, edit_entry, delete_entry, delete_untracked_entry, \
+    track_entry, clone_project
 
 app_name = "project"
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path("<int:project_id>/edit/", edit_project, name="edit_project"),
     path('delete_untracked_entry/<int:entry_id>/', delete_untracked_entry, name="delete_untracked_entry"),
     path('track_entry/<int:entry_id>/', track_entry, name='track_entry'),
+    path('<int:project_id>/clone/', clone_project, name='clone_project'),
 
 
     path('api/start_timer/', api_start_timer, name="api_start_timer"),

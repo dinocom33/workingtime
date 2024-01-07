@@ -30,7 +30,8 @@ def activate_team(request, team_id):
 @login_required(login_url='login')
 @admin_only
 def edit_team(request):
-    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE,
+                             members__in=[request.user])
     if request.method == 'POST':
         title = request.POST.get("title")
 
@@ -68,7 +69,8 @@ def add_team(request):
 @login_required(login_url='login')
 @admin_only
 def invite(request):
-    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE, members__in=[request.user])
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE,
+                             members__in=[request.user])
 
     if request.method == "POST":
         email = request.POST.get('email')
@@ -77,7 +79,8 @@ def invite(request):
             invitations = Invitation.objects.filter(team=team, email=email)
 
             if not invitations:
-                code = "".join(random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789") for i in range(4))
+                code = "".join(
+                    random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789") for i in range(4))
                 invitation = Invitation.objects.create(team=team, email=email, code=code)
 
                 messages.info(request, "The user has been invited")

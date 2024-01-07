@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from copy import deepcopy
 
 from .models import Project, Task, Entry
 from apps.team.models import Team
@@ -11,7 +12,8 @@ from apps.main.decorators import allowed_users, admin_only
 @login_required(login_url='login')
 def projects(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
-    projects = team.projects.all()
+    projects = team.projects.filter(status=Project.ACTIVE)
+    archived_projects = team.projects.filter(status=Project.ARCHIVED)
 
     if request.method == "POST":
         title = request.POST.get('title')
@@ -23,7 +25,7 @@ def projects(request):
 
             return redirect('project:projects')
 
-    return render(request, 'project/projects.html', {"team": team, "projects": projects})
+    return render(request, 'project/projects.html', {"team": team, "projects": projects, 'archived_projects': archived_projects})
 
 
 @login_required(login_url='login')
@@ -43,8 +45,11 @@ def project(request, project_id):
 
     tasks_todo = project.tasks.filter(status=Task.TODO)
     tasks_done = project.tasks.filter(status=Task.DONE)
+    tasks_archived = project.tasks.filter(status=Task.ARCHIVED)
 
-    return render(request, "project/project.html", {"team": team, "project": project, "tasks_todo": tasks_todo, "tasks_done": tasks_done})
+    return render(request, "project/project.html",
+                  {"team": team, "project": project, "tasks_todo": tasks_todo, "tasks_done": tasks_done,
+                   'tasks_archived': tasks_archived})
 
 
 @login_required(login_url='login')
@@ -55,9 +60,11 @@ def edit_project(request, project_id):
 
     if request.method == "POST":
         title = request.POST.get('title')
+        status = request.POST.get('status')
 
         if title:
             project.title = title
+            project.status = status
             project.save()
 
             messages.info(request, "Changes was saved successfully")
@@ -79,9 +86,11 @@ def task(request, project_id, task_id):
         date = '%s %s' % (request.POST.get('date'), datetime.now().time())
         total_minutes = (hours * 60) + minutes
 
-        entry = Entry.objects.create(team=team, project=project, task=task, minutes=total_minutes, created_by=request.user, created_at=date, is_tracked=True)
+        entry = Entry.objects.create(team=team, project=project, task=task, minutes=total_minutes,
+                                     created_by=request.user, created_at=date, is_tracked=True)
 
-    return render(request, "project/task.html", {"today": datetime.today(), "team": team, "project": project, "task": task})
+    return render(request, "project/task.html",
+                  {"today": datetime.today(), "team": team, "project": project, "task": task})
 
 
 @login_required(login_url='login')
@@ -168,7 +177,7 @@ def delete_untracked_entry(request, entry_id):
 def track_entry(request, entry_id):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
     entry = get_object_or_404(Entry, pk=entry_id, team=team)
-    projects = team.projects.all()
+    projects = team.projects.filter(status=Project.ACTIVE)
 
     if request.method == 'POST':
         hours = int(request.POST.get('hours', 0))
@@ -195,7 +204,37 @@ def track_entry(request, entry_id):
         'minutes': minutes,
         'team': team,
         'projects': projects,
-        'entry': entry
+        'entry': entry,
     }
 
     return render(request, 'project/track_entry.html', context)
+
+
+@login_required(login_url='login')
+@admin_only
+def clone_project(request, project_id):
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
+    project = Project.objects.filter(team=team, pk=project_id).get()
+    tasks = Task.objects.filter(project=project)
+    new_project = deepcopy(project)
+
+    if request.method == "POST":
+        new_project.title = request.POST.get('title')
+        new_project.team = project.team
+        new_project.created_by = request.user
+        new_project.create_at = datetime.now()
+        new_project.pk = None
+
+        new_project.save()
+
+        for task in tasks:
+            new_task = deepcopy(task)
+            new_task.pk = None
+            new_task.project = new_project
+            new_task.save()
+
+        messages.info(request, "Project was cloned successfully")
+
+        return redirect("project:project", project_id=new_project.id)
+
+    return render(request, "project/edit_project.html", {"team": team, "project": project})

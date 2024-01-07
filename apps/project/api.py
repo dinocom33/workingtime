@@ -62,7 +62,8 @@ def api_get_tasks(request):
         for task in project.tasks.all():
             obj = {
                 'id': task.id,
-                'title': task.title
+                'title': task.title,
+                'status': task.status,
             }
             tasks.append(obj)
 

@@ -8,7 +8,8 @@
             <ul>
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="{% url 'project:projects' %}">Projects</a></li>
-                <li class="is-active"><a href="{% url 'project:project' project.id %}" aria-current="page">{{ project.title }}</a></li>
+                <li class="is-active"><a href="{% url 'project:project' project.id %}"
+                                         aria-current="page">{{ project.title }}</a></li>
             </ul>
         </nav>
 
@@ -20,6 +21,7 @@
                     {% if request.user.is_staff %}
                         <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
                         <a href="{% url 'project:edit_project' project.id %}" class="button is-warning">Edit project</a>
+                        <a href="{% url 'project:clone_project' project.id %}" class="button is-danger">Clone project</a>
                     {% endif %}
                     <a class="button" href="{% url 'project:projects' %}">Back</a>
                 </div>
@@ -62,6 +64,24 @@
                 </div>
 
                 {% for task in tasks_done %}
+                    <div class="column is-4">
+                        <div class="notification">
+                            <h3 class="is-size-5">{{ task.title }}</h3>
+                            <p>Registered time: {{ task.registered_time }} min</p>
+
+                            <hr>
+
+                            <a href="{% url 'project:task' project.id task.id %}" class="button is-success">Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if tasks_archived %}
+                <div class="column is-12">
+                    <h2 class="is-size-4">Archived</h2>
+                </div>
+
+                {% for task in tasks_archived %}
                     <div class="column is-4">
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>

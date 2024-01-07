@@ -21,14 +21,39 @@
                 {% endif %}
             </div>
         </div>
-
+        <hr>
         <div class="columns is-multiline d-flex flex-wrap">
+            <div class="column is-12">
+                <h2 class="is-size-4">Active Projects</h2>
+            </div>
             {% for project in projects %}
                 <div class="column is-2 flex-item">
                     <div class="notification">
                         <h2 class="is-size-5">{{ project.title }}</h2>
                         <p class="is-size-7">Registered time: {{ project.registered_time|format_minutes }}</p>
-                        <p class="is-size-7">Tasks: {{ project.num_tasks_todo }}</p><br/>
+                        <p class="is-size-7">Tasks todo: {{ project.num_tasks_todo }}</p><br/>
+                        <a href="{% url 'project:project' project.id %}" class="button is-success">Details</a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="column is-3">
+                    <div class="notification">
+                        There is no projects yet...
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    <hr>
+        <div class="columns is-multiline d-flex flex-wrap">
+            <div class="column is-12">
+                <h2 class="is-size-4">Archived Projects</h2>
+            </div>
+            {% for project in archived_projects %}
+                <div class="column is-2 flex-item">
+                    <div class="notification">
+                        <h2 class="is-size-5">{{ project.title }}</h2>
+                        <p class="is-size-7">Registered time: {{ project.registered_time|format_minutes }}</p>
+                        <p class="is-size-7">Tasks todo: {{ project.num_tasks_todo }}</p><br/>
                         <a href="{% url 'project:project' project.id %}" class="button is-success">Details</a>
                     </div>
                 </div>

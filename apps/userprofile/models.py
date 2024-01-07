@@ -14,3 +14,6 @@ class Userprofile(models.Model):
             return self.avatar.url
         else:
             return "/static/images/avatar.png"
+
+    def __str__(self):
+        return self.user.username

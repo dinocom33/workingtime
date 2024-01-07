@@ -6,30 +6,31 @@
     <div class="columns is-multiline">
         <div class="column is-6">
             <div class="notification">
-                <h2 class="subtitle">Your time {% if num_days is 0 %}today{% else %}{{ date_user|date:'Y-m-d' }}{% endif %}</h2>
+                <h2 class="subtitle">Your time {% if num_days is 0 %}today{% else %}
+                    {{ date_user|date:'Y-m-d' }}{% endif %}</h2>
                 {% if date_entries %}
                     <table class="table is-fullwidth" style="text-align: left;">
                         <thead>
-                            <tr>
-                                <td>Task</td>
-                                <td>Project</td>
-                                <td>Time</td>
-                            </tr>
+                        <tr>
+                            <td>Task</td>
+                            <td>Project</td>
+                            <td>Time</td>
+                        </tr>
                         </thead>
                         <tbody>
-                            {% for entry in date_entries %}
-                                <tr>
-                                    <td>{{ entry.task.title }}</td>
-                                    <td>{{ entry.project.title }}</td>
-                                    <td>{{ entry.minutes|format_minutes }}</td>
-                                </tr>
-                            {% endfor %}
+                        {% for entry in date_entries %}
+                            <tr>
+                                <td>{{ entry.task.title }}</td>
+                                <td>{{ entry.project.title }}</td>
+                                <td>{{ entry.minutes|format_minutes }}</td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td colspan="2">Total</td>
-                                <td>{{ time_for_user_and_date|format_minutes }}</td>
-                            </tr>
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td>{{ time_for_user_and_date|format_minutes }}</td>
+                        </tr>
                         </tfoot>
                     </table>
                 {% else %}
@@ -44,31 +45,32 @@
 
         <div class="column is-6">
             <div class="notification">
-                <h2 class="subtitle">Your time {% if user_num_months is 0 %}this month{% else %}{{ user_month|date:'Y-m' }}{% endif %}</h2>
+                <h2 class="subtitle">Your time {% if user_num_months is 0 %}this month{% else %}
+                    {{ user_month|date:'Y-m' }}{% endif %}</h2>
 
                 {% if time_for_user_and_month %}
                     <table class="table is-fullwidth" style="text-align: left;">
                         <thead>
-                            <tr>
-                                <td>Project</td>
-                                <td>Time (min)</td>
-                            </tr>
+                        <tr>
+                            <td>Project</td>
+                            <td>Time (min)</td>
+                        </tr>
                         </thead>
                         <tbody>
-                            {% for project in all_projects %}
-                                {% if project.time_for_user_and_project_and_month > 0 %}
-                                    <tr>
-                                        <td>{{ project.title }}</td>
-                                        <td>{{ project.time_for_user_and_project_and_month|format_minutes }}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
+                        {% for project in all_projects %}
+                            {% if project.time_for_user_and_project_and_month > 0 %}
+                                <tr>
+                                    <td>{{ project.title }}</td>
+                                    <td>{{ project.time_for_user_and_project_and_month|format_minutes }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td>Total</td>
-                                <td>{{ time_for_user_and_month|format_minutes }}</td>
-                            </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>{{ time_for_user_and_month|format_minutes }}</td>
+                        </tr>
                         </tfoot>
                     </table>
                 {% else %}
@@ -86,30 +88,30 @@
                 <h2 class="subtitle">Your untracked entries</h2>
                 <table class="table is-fullwidth" style="text-align: left;">
                     <thead>
-                        <tr>
-                            <th>Started</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Add to task</th>
-                            <th>Discard</th>
-                        </tr>
+                    <tr>
+                        <th>Started</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Add to task</th>
+                        <th>Discard</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for entry in untracked_entries %}
-                            <tr>
-                                <td>{{ entry.created_at }}</td>
-                                <td>
-                                    {% if entry.mintes == 0 %}
-                                        {{ entry.minutes_since|format_minutes }}
-                                    {% else %}
-                                        {{ entry.minutes|format_minutes }}
-                                    {% endif %}
-                                </td>
-                                <td>{% if entry.minutes == 0 %}In progress{% else %}Untracked{% endif %}</td>
-                                <td><a href="{% url 'project:track_entry' entry.id %}">Add to task</a> </td>
-                                <td><a href="{% url 'project:delete_untracked_entry' entry.id %}">Delete</a> </td>
-                            </tr>
-                        {% endfor %}
+                    {% for entry in untracked_entries %}
+                        <tr>
+                            <td>{{ entry.created_at }}</td>
+                            <td>
+                                {% if entry.mintes == 0 %}
+                                    {{ entry.minutes_since|format_minutes }}
+                                {% else %}
+                                    {{ entry.minutes|format_minutes }}
+                                {% endif %}
+                            </td>
+                            <td>{% if entry.minutes == 0 %}In progress{% else %}Untracked{% endif %}</td>
+                            <td><a href="{% url 'project:track_entry' entry.id %}">Add to task</a></td>
+                            <td><a href="{% url 'project:delete_untracked_entry' entry.id %}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -118,30 +120,33 @@
         {% if request.user == team.created_by %}
             <div class="column is-6">
                 <div class="notification">
-                    <h2 class="subtitle">Your team {% if team_num_months is 0 %}this month{% else %}{{ team_month|date:'Y-m' }}{% endif %}</h2>
+                    <h2 class="subtitle">Your team {% if team_num_months is 0 %}this month{% else %}
+                        {{ team_month|date:'Y-m' }}{% endif %}</h2>
 
                     {% if time_for_team_and_month > 0 %}
                         <table class="table is-fullwidth" style="text-align: left;">
                             <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Time</th>
-                                </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Time</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for member in members %}
-                                    <tr>
-                                        <td><a href="{% url 'view_user' member.id %}">{% firstof member.get_full_name member.username %}</a></td>
-                                        <td>{{ member.time_for_user_and_team_and_month|format_minutes }}</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for member in members %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'view_user' member.id %}">{% firstof member.get_full_name member.username %}</a>
+                                    </td>
+                                    <td>{{ member.time_for_user_and_team_and_month|format_minutes }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td>{{ time_for_team_and_month|format_minutes }}</td>
                             </tr>
-                        </tfoot>
+                            </tfoot>
                         </table>
                     {% else %}
                         <p>No registered time for your team this month</p>
